@@ -14,7 +14,7 @@
     
 # Requisitos Funcionais
   * Sistema deve permitir que o usuário faça cadastro com suas devidas informações.
-  * Sistema deve permitir que usuário possa escolher meios de pagamento(Cartão ou Pix).
+  * Sistema deve permitir que usuário possa escolher meios de pagamento.
   * Sistema deve permitir gerenciamento de biblioteca de jogos, seja na exclusão ou adição de um novo jogo a mesma.
   * Sistema deve permitir que usuário possa adicionar amigos a plataforma.
   * Sistema deve permitir que usuário possa presentear amigos com jogos da sua biblioteca.
