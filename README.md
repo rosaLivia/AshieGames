@@ -19,4 +19,9 @@
   * Sistema deve permitir que usuário possa adicionar amigos a plataforma.
   * Sistema deve permitir que usuário possa presentear amigos com jogos da sua biblioteca.
 
+# Relatórios 
+  * O sistema deve permitir a geração de relatórios de jogos com entrada e saída, detalhando as transações de compra. 
+
+
+
 Projeto criado para a disciplina PROGRAMAÇÃO PARA DISPOSITIVOS MÓVEIS, desenvolvido pelos alunos: Lívia Rosa e Wagner Rodrigues. 
