@@ -1,6 +1,6 @@
 # AshieGames 
 # Visão Geral
-  Este projeto é um sistema de compra de jogos Mobile, que permite que o cliente compre e gerencie suas compras, biblioteca de jogos e interação com outros usuários. 
+  Este projeto é um sistema de compra de jogos Mobile, que permite que o cliente compre, gerencie suas compras, biblioteca de jogos e interação com outros usuários. 
 
 # Classe de Usuário
   Usuário comum de jogos Mobile que procura uma plataforma direta de compras e gerenciamento de biblioteca. 
