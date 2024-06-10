@@ -18,7 +18,7 @@
   * Sistema deve permitir gerenciamento de biblioteca de jogos, seja na exclusão ou adição de um novo jogo a mesma.
   * Sistema deve permitir que usuário possa adicionar amigos a plataforma.
   * Sistema deve permitir que usuário possa presentear amigos com jogos da sua biblioteca.
-  * Sistema deve permitir listagem de usuários amigos
+  * Sistema deve permitir listagem de usuários amigos.
     
 # Recursos do AndroidStudio
   * String, Cores, Atividades, Banco de dados ROOM, ListVIew, Menu de Opções, Preenchimento de campos de validação. 
