@@ -1,14 +1,22 @@
 package com.example.stardewvalley.Entity;
 
 public class User {
-    private String userID; // Alterado para String para compatibilidade com Firebase
+    private String userID;
     private String nome;
     private String email;
     private String senha;
 
-    // Construtor vazio necessário para a desserialização com Firebase
-    public User() {}
+    public User() {
+        // Construtor vazio necessário para Firestore
+    }
 
+    public User(String nome, String email, String senha) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+    }
+
+    // Novo construtor que aceita o userID
     public User(String userID, String nome, String email, String senha) {
         this.userID = userID;
         this.nome = nome;
@@ -16,7 +24,7 @@ public class User {
         this.senha = senha;
     }
 
-    // Getters e setters
+    // Getters e Setters
     public String getUserID() {
         return userID;
     }

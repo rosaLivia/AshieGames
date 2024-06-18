@@ -1,33 +1,33 @@
-package com.example.stardewvalley.Service;
+package com.example.stardewvalley.service;
 
-import com.example.stardewvalley.Entity.User;
+import com.example.stardewvalley.Entity.Seed;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class UserService {
-    private final CollectionReference userCollection;
+public class SeedService {
+    private final CollectionReference seedCollection;
 
-    public UserService() {
+    public SeedService() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        userCollection = db.collection("users");
+        seedCollection = db.collection("seeds");
     }
 
-    public void addUser(User user) {
-        userCollection.add(user)
+    public void addSeed(Seed seed) {
+        seedCollection.add(seed)
                 .addOnSuccessListener(documentReference -> {
                     String id = documentReference.getId();
-                    user.setUserID(id);
-                    documentReference.set(user); // Atualiza o ID no documento
+                    seed.setEnderecoID(id);
+                    documentReference.set(seed); // Atualiza o ID no documento
                 })
                 .addOnFailureListener(e -> {
                     // Lidar com falha
                 });
     }
 
-    public void updateUser(User user) {
-        userCollection.document(user.getUserID()).set(user)
+    public void updateSeed(Seed seed) {
+        seedCollection.document(seed.getEnderecoID()).set(seed)
                 .addOnSuccessListener(aVoid -> {
                     // Sucesso
                 })
@@ -36,8 +36,8 @@ public class UserService {
                 });
     }
 
-    public void deleteUser(String userID) {
-        userCollection.document(userID).delete()
+    public void deleteSeed(String enderecoID) {
+        seedCollection.document(enderecoID).delete()
                 .addOnSuccessListener(aVoid -> {
                     // Sucesso
                 })
@@ -46,7 +46,7 @@ public class UserService {
                 });
     }
 
-    public void getUser(String userID, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
-        userCollection.document(userID).get().addOnCompleteListener(onCompleteListener);
+    public void getSeed(String enderecoID, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
+        seedCollection.document(enderecoID).get().addOnCompleteListener(onCompleteListener);
     }
 }

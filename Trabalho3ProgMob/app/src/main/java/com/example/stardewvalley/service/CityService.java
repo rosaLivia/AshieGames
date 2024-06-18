@@ -1,4 +1,4 @@
-package com.example.stardewvalley.Service;
+package com.example.stardewvalley.service;
 
 import com.example.stardewvalley.Entity.City;
 import com.google.android.gms.tasks.OnCompleteListener;

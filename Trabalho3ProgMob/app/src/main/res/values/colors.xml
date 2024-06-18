@@ -2,4 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="vermelho">#FF0000</color>
+    <color name="vermelho_deletar">#D32F2F</color>
+    <color name="verde_personalizado">#FF15640F</color>
+    <color name="verde_salvar">#4CAF50</color>
+    <color name="azul_voltar">#FF122C5D</color>
 </resources>
