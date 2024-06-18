@@ -1,6 +1,9 @@
-package com.example.stardewvalley;
+package com.example.stardewvalley.view;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,7 +11,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.stardewvalley.R;
+import com.google.firebase.Firebase;
+
 public class MainActivity extends AppCompatActivity {
+
+    private Button start;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +28,23 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        Button btnStart = findViewById(R.id.btnStart);
+        btnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Login.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+
+        
     }
+
+
+
+
 }

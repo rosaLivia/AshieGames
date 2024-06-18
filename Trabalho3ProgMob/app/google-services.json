@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "620969359873",
+    "project_id": "stardewvalley-5b91d",
+    "storage_bucket": "stardewvalley-5b91d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:620969359873:android:e5b5d67e447dee2bdade00",
+        "android_client_info": {
+          "package_name": "com.example.stardewvalley"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvm0Jnb4VMszesspIodFe9Z7GJcgyqh_A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
