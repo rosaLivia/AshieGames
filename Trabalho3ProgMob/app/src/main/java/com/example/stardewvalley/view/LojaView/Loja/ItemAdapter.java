@@ -61,27 +61,27 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
         switch (name) {
             case "Item 1":
-                return R.drawable.capa;
+                return R.drawable.c1;
             case "Item 2":
-                return R.drawable.default_image;
+                return R.drawable.c2;
             case "Item 3":
-                return R.drawable.a;
+                return R.drawable.c3;
             case "Item 4":
-                return R.drawable.a;
+                return R.drawable.c4;
             case "Item 5":
-                return R.drawable.a;
+                return R.drawable.c5;
             case "Item 6":
-                return R.drawable.a;
+                return R.drawable.c6;
             case "Item 7":
-                return R.drawable.a;
+                return R.drawable.c7;
             case "Item 8":
-                return R.drawable.a;
+                return R.drawable.c8;
             case "Item 9":
-                return R.drawable.a;
+                return R.drawable.c9;
             case "Item 10":
-                return R.drawable.a;
+                return R.drawable.c10;
             default:
-                return R.drawable.default_image;
+                return R.drawable.c8;
         }
     }
 
