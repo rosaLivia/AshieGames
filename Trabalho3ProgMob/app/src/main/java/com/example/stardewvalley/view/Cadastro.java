@@ -17,6 +17,8 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.stardewvalley.Entity.User;
 import com.example.stardewvalley.R;
 import com.example.stardewvalley.service.UserService;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Cadastro extends AppCompatActivity {
 
@@ -24,6 +26,7 @@ public class Cadastro extends AppCompatActivity {
     private EditText editTextEmail;
     private EditText editTextPassword;
     private Button btnCadastro;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,8 @@ public class Cadastro extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        mAuth = FirebaseAuth.getInstance();
 
         editTextNome = findViewById(R.id.editTextNome);
         editTextEmail = findViewById(R.id.editTextEmail);
@@ -53,16 +58,30 @@ public class Cadastro extends AppCompatActivity {
                     return;
                 }
 
-                User user = new User(nome, email, password);
-                UserService userService = new UserService();
-                userService.addUser(user, aVoid -> {
-                    Log.d("CadastroActivity", "Cadastro realizado com sucesso!");
-                    Toast.makeText(Cadastro.this, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
-                    finish();
-                }, e -> {
-                    Log.e("CadastroActivity", "Falha ao cadastrar", e);
-                    Toast.makeText(Cadastro.this, "Falha ao cadastrar. Tente novamente.", Toast.LENGTH_SHORT).show();
-                });
+                // Criar usuário com email e senha no Firebase Authentication
+                mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                // Obter o usuário autenticado
+                                FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                                if (firebaseUser != null) {
+                                    String userId = firebaseUser.getUid();
+                                    User user = new User(userId, nome, email, password);
+                                    UserService userService = new UserService();
+                                    userService.addUser(user, aVoid -> {
+                                        Log.d("CadastroActivity", "Cadastro realizado com sucesso!");
+                                        Toast.makeText(Cadastro.this, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }, e -> {
+                                        Log.e("CadastroActivity", "Falha ao cadastrar", e);
+                                        Toast.makeText(Cadastro.this, "Falha ao cadastrar. Tente novamente.", Toast.LENGTH_SHORT).show();
+                                    });
+                                }
+                            } else {
+                                Log.e("CadastroActivity", "Erro ao criar usuário: " + task.getException().getMessage(), task.getException());
+                                Toast.makeText(Cadastro.this, "Erro ao criar usuário. Tente novamente.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
         });
     }

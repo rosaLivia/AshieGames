@@ -14,6 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.stardewvalley.LojaView.AshieGames;
 import com.example.stardewvalley.R;
 import com.example.stardewvalley.Entity.User;
 import com.example.stardewvalley.service.UserService;
@@ -55,7 +56,7 @@ public class Login extends AppCompatActivity {
                     UserService userService = new UserService();
                     userService.getUserByEmailAndPassword(email, password, task -> {
                         if (task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
-                            Intent intent = new Intent(Login.this, MainActivity.class);
+                            Intent intent = new Intent(Login.this, AshieGames.class); // Alteração aqui
                             startActivity(intent);
                         } else {
                             Toast.makeText(Login.this, "Email ou senha incorretos", Toast.LENGTH_SHORT).show();
@@ -64,6 +65,7 @@ public class Login extends AppCompatActivity {
                 }
             }
         });
+
 
         btnCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
