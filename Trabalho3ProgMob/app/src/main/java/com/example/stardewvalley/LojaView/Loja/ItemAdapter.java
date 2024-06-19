@@ -1,4 +1,4 @@
-package com.example.stardewvalley.LojaView;
+package com.example.stardewvalley.LojaView.Loja;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.stardewvalley.LojaView.Compra.CompraItem;
 import com.example.stardewvalley.R;
 import com.example.stardewvalley.model.Item;
 
@@ -29,7 +30,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_list_row, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_item_adapter, parent, false);
         return new ItemViewHolder(view);
     }
 

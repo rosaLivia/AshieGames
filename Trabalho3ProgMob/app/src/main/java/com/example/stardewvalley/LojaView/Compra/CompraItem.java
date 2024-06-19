@@ -1,4 +1,4 @@
-package com.example.stardewvalley.LojaView;
+package com.example.stardewvalley.LojaView.Compra;
 
 import android.os.Bundle;
 import android.widget.Button;

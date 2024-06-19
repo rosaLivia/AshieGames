@@ -13,10 +13,10 @@
         android:theme="@style/Theme.StardewValley"
         tools:targetApi="31">
         <activity
-            android:name=".LojaView.CompraItem"
+            android:name=".LojaView.Compra.CompraItem"
             android:exported="false" />
         <activity
-            android:name=".LojaView.AshieGames"
+            android:name=".LojaView.Loja.AshieGames"
             android:exported="false" />
         <activity
             android:name=".view.Cadastro"
