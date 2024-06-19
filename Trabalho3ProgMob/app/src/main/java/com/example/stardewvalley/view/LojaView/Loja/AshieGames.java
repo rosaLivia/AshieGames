@@ -1,4 +1,4 @@
-package com.example.stardewvalley.LojaView.Loja;
+package com.example.stardewvalley.view.LojaView.Loja;
 
 import android.os.Bundle;
 

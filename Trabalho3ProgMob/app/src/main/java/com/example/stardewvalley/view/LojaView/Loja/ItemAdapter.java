@@ -1,4 +1,4 @@
-package com.example.stardewvalley.LojaView.Loja;
+package com.example.stardewvalley.view.LojaView.Loja;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.stardewvalley.LojaView.Compra.CompraItem;
+import com.example.stardewvalley.view.LojaView.Compra.CompraItem;
 import com.example.stardewvalley.R;
 import com.example.stardewvalley.model.Item;
 
