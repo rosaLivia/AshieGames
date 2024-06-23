@@ -3,23 +3,29 @@ package com.example.stardewvalley.view.perfil;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.stardewvalley.R;
+import com.example.stardewvalley.entity.User;
+import com.example.stardewvalley.service.UserService;
+import com.example.stardewvalley.view.Login;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 public class PerfilUser extends AppCompatActivity {
@@ -30,59 +36,75 @@ public class PerfilUser extends AppCompatActivity {
     private TextView profileName;
     private TextView profileEmail;
 
-    private DatabaseReference databaseReference;
+    private UserService userService;
+    private FirebaseUser currentUser;
+    private StorageReference storageReference;
+
+
+
+
+    private Button btnDeslogar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_user);
+        //teste
+        IniciarComponentes();
+        ///
 
         profileImageView = findViewById(R.id.profileImageView);
         profileName = findViewById(R.id.profileName);
         profileEmail = findViewById(R.id.profileEmail);
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            // Referência ao nó "users" no Realtime Database
-            databaseReference = FirebaseDatabase.getInstance().getReference().child("users");
 
-            // Consulta para buscar o usuário pelo email
-            Query query = databaseReference.orderByChild("email").equalTo(user.getEmail());
 
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
+
+
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        storageReference = FirebaseStorage.getInstance().getReference("profile_pics");
+        userService = new UserService();
+
+        if (currentUser != null) {
+            // Consultar usuário pelo email
+            userService.getUserByEmail(currentUser.getEmail(), new OnCompleteListener<QuerySnapshot>() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()) {
-                        for (DataSnapshot userSnapshot : snapshot.getChildren()) {
-                            String nome = userSnapshot.child("nome").getValue(String.class);
-                            String email = userSnapshot.child("email").getValue(String.class);
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
+                        for (DocumentSnapshot document : task.getResult()) {
+                            User userData = document.toObject(User.class);
+                            if (userData != null) {
+                                profileName.setText(userData.getNome() != null ? userData.getNome() : "Nome do Usuário");
+                                profileEmail.setText(userData.getEmail() != null ? userData.getEmail() : "Email do Usuário");
 
-                            // Debugging: Log para verificar os dados recuperados
-                            Log.d("PerfilUser", "Nome: " + nome + ", Email: " + email);
-
-                            // Definir o nome e email do usuário nos TextViews
-                            profileName.setText(nome != null ? nome : "Nome do Usuário");
-                            profileEmail.setText(email != null ? email : "Email do Usuário");
+                                // Carregar a foto do usuário, se disponível
+                                if (userData.getProfileImageUrl() != null) {
+                                    Picasso.get().load(userData.getProfileImageUrl()).into(profileImageView);
+                                } else {
+                                    profileImageView.setImageResource(R.drawable.a);
+                                }
+                            }
                         }
                     } else {
-                        Log.d("PerfilUser", "No user data found for email: " + user.getEmail());
+                        Log.d("PerfilUser", "No user data found for email: " + currentUser.getEmail());
                     }
                 }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Log.w("PerfilUser", "Failed to read user info.", error.toException());
-                }
             });
-
-            // Mostrar a foto do usuário, se disponível
-            if (user.getPhotoUrl() != null) {
-                Picasso.get().load(user.getPhotoUrl()).into(profileImageView);
-            } else {
-                profileImageView.setImageResource(R.drawable.a);
-            }
         }
+
+
+        ///teste
+        btnDeslogar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                 FirebaseAuth.getInstance().signOut();
+                 Intent intent = new Intent(PerfilUser.this, Login.class);
+                 startActivity(intent);
+                 finish();
+           }
+        });
     }
+
 
     // Método chamado quando o botão "Alterar Foto" é clicado
     public void changeProfilePicture(View view) {
@@ -99,9 +121,31 @@ public class PerfilUser extends AppCompatActivity {
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri imageUri = data.getData();
-            // Aqui você deve implementar a lógica para salvar a nova imagem de perfil no Firebase Storage, por exemplo
-            // e então atualizar a imagem exibida usando Picasso ou outra biblioteca de carregamento de imagem
-            Picasso.get().load(imageUri).into(profileImageView);
+            uploadImageToFirebase(imageUri);
         }
+    }
+
+    // Método para fazer o upload da imagem para o Firebase Storage
+    private void uploadImageToFirebase(Uri imageUri) {
+        if (currentUser != null) {
+            StorageReference fileReference = storageReference.child(currentUser.getUid() + ".jpg");
+
+            fileReference.putFile(imageUri)
+                    .addOnSuccessListener(taskSnapshot -> {
+                        fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                            // Atualize a URL da imagem de perfil no Firestore
+                            userService.updateProfileImageUrl(currentUser.getUid(), uri.toString());
+                            Picasso.get().load(uri).into(profileImageView);
+                            Toast.makeText(PerfilUser.this, "Foto de perfil atualizada com sucesso!", Toast.LENGTH_SHORT).show();
+                        });
+                    })
+                    .addOnFailureListener(e -> Toast.makeText(PerfilUser.this, "Falha ao fazer upload da imagem.", Toast.LENGTH_SHORT).show());
+        }
+    }
+
+
+
+    private void IniciarComponentes() {
+        btnDeslogar = findViewById(R.id.btnDeslogar);
     }
 }

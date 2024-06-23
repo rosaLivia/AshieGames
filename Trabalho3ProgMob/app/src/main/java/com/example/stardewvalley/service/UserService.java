@@ -1,5 +1,7 @@
 package com.example.stardewvalley.service;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.example.stardewvalley.entity.User;
@@ -22,14 +24,12 @@ public class UserService {
 
     // Adicionar usuário ao Firestore
     public void addUser(User user, OnSuccessListener<Void> onSuccessListener, OnFailureListener onFailureListener) {
-        userCollection.add(user)
-                .addOnSuccessListener(documentReference -> {
-                    String id = documentReference.getId();
-                    user.setUserID(id);
-                    userCollection.document(id).set(user)
-                            .addOnSuccessListener(onSuccessListener)
-                            .addOnFailureListener(onFailureListener);
-                })
+        DocumentReference newUserRef = userCollection.document();
+        String userID = newUserRef.getId();
+        user.setUserID(userID);
+
+        newUserRef.set(user)
+                .addOnSuccessListener(onSuccessListener)
                 .addOnFailureListener(onFailureListener);
     }
 
@@ -59,4 +59,17 @@ public class UserService {
                 .get()
                 .addOnCompleteListener(onCompleteListener);
     }
+
+    // Obter usuário pelo email
+    // Obter usuário pelo email
+    public void getUserByEmail(String email, OnCompleteListener<QuerySnapshot> onCompleteListener) {
+        userCollection.whereEqualTo("email", email).get().addOnCompleteListener(onCompleteListener);
+    }
+
+    public void updateProfileImageUrl(String userId, String profileImageUrl) {
+        userCollection.document(userId).update("profileImageUrl", profileImageUrl)
+                .addOnSuccessListener(aVoid -> Log.d("UserService", "Profile image URL updated successfully."))
+                .addOnFailureListener(e -> Log.w("UserService", "Error updating profile image URL", e));
+    }
+
 }

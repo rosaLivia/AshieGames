@@ -1,4 +1,3 @@
-
 package com.example.stardewvalley.entity;
 
 public class User {
@@ -6,6 +5,7 @@ public class User {
     private String nome;
     private String email;
     private String senha;
+    private String profileImageUrl; // Novo campo para armazenar a URL da imagem de perfil
 
     public User() {
         // Construtor vazio necessário para Firestore
@@ -17,12 +17,20 @@ public class User {
         this.senha = senha;
     }
 
-    // Novo construtor que aceita o userID
     public User(String userID, String nome, String email, String senha) {
         this.userID = userID;
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+        this.profileImageUrl = null; // Definir profileImageUrl como null por padrão
+    }
+
+    public User(String userID, String nome, String email, String senha, String profileImageUrl) {
+        this.userID = userID;
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.profileImageUrl = profileImageUrl;
     }
 
     // Getters e Setters
@@ -56,5 +64,13 @@ public class User {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
+
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
     }
 }
