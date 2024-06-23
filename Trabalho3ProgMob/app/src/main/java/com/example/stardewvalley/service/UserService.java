@@ -2,7 +2,7 @@ package com.example.stardewvalley.service;
 
 import androidx.annotation.NonNull;
 
-import com.example.stardewvalley.Entity.User;
+import com.example.stardewvalley.entity.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

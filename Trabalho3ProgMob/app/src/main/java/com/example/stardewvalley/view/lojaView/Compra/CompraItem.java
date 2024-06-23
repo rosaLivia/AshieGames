@@ -1,4 +1,4 @@
-package com.example.stardewvalley.view.LojaView.Compra;
+package com.example.stardewvalley.view.lojaView.Compra;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -92,9 +92,8 @@ public class CompraItem extends AppCompatActivity {
             case "Item 10":
                 return R.drawable.c10;
             default:
-                return R.drawable.c8;
+                return R.drawable.default_image;
         }
-
     }
 
     private double getItemPriceByName(String name) {
@@ -127,25 +126,25 @@ public class CompraItem extends AppCompatActivity {
     private Item getItemByName(String name) {
         switch (name) {
             case "Item 1":
-                return new Item("Item 1", "https://example.com/image1.jpg", 10.99);
+                return new Item("Item 1", R.drawable.c1, 10.99);
             case "Item 2":
-                return new Item("Item 2", "https://example.com/image2.jpg", 15.49);
+                return new Item("Item 2", R.drawable.c2, 15.49);
             case "Item 3":
-                return new Item("Item 3", "https://example.com/image3.jpg", 7.99);
+                return new Item("Item 3", R.drawable.c3, 7.99);
             case "Item 4":
-                return new Item("Item 4", "https://example.com/image4.jpg", 12.49);
+                return new Item("Item 4", R.drawable.c4, 12.49);
             case "Item 5":
-                return new Item("Item 5", "https://example.com/image5.jpg", 9.99);
+                return new Item("Item 5", R.drawable.c5, 9.99);
             case "Item 6":
-                return new Item("Item 6", "https://example.com/image6.jpg", 11.99);
+                return new Item("Item 6", R.drawable.c6, 11.99);
             case "Item 7":
-                return new Item("Item 7", "https://example.com/image7.jpg", 8.99);
+                return new Item("Item 7", R.drawable.c7, 8.99);
             case "Item 8":
-                return new Item("Item 8", "https://example.com/image8.jpg", 14.49);
+                return new Item("Item 8", R.drawable.c8, 14.49);
             case "Item 9":
-                return new Item("Item 9", "https://example.com/image9.jpg", 13.99);
+                return new Item("Item 9", R.drawable.c9, 13.99);
             case "Item 10":
-                return new Item("Item 10", "https://example.com/image10.jpg", 6.49);
+                return new Item("Item 10", R.drawable.c10, 6.49);
             default:
                 return null;
         }

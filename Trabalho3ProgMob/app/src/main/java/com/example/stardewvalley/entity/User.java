@@ -1,4 +1,5 @@
-package com.example.stardewvalley.Entity;
+
+package com.example.stardewvalley.entity;
 
 public class User {
     private String userID;

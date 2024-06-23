@@ -1,4 +1,4 @@
-package com.example.stardewvalley.view.LojaView.Loja;
+package com.example.stardewvalley.view.lojaView.Loja;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,9 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.stardewvalley.view.LojaView.Compra.CompraItem;
 import com.example.stardewvalley.R;
 import com.example.stardewvalley.model.Item;
+import com.example.stardewvalley.view.lojaView.Compra.CompraItem;
 
 import java.util.List;
 
@@ -40,9 +40,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         holder.itemName.setText(item.getName());
         holder.itemPrice.setText(String.format("$%.2f", item.getPrice()));
 
-        // Carregar a imagem do recurso (drawable) correspondente ao item
-        int imageResource = getDrawableResourceByName(item.getName());
-        holder.itemImage.setImageResource(imageResource);
+        // Carregar a imagem do recurso drawable correspondente ao item
+        holder.itemImage.setImageResource(item.getImageResourceId());
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, CompraItem.class);
@@ -54,35 +53,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     @Override
     public int getItemCount() {
         return itemList.size();
-    }
-
-    private int getDrawableResourceByName(String name) {
-        if (name == null) return R.drawable.default_image;
-
-        switch (name) {
-            case "Item 1":
-                return R.drawable.c1;
-            case "Item 2":
-                return R.drawable.c2;
-            case "Item 3":
-                return R.drawable.c3;
-            case "Item 4":
-                return R.drawable.c4;
-            case "Item 5":
-                return R.drawable.c5;
-            case "Item 6":
-                return R.drawable.c6;
-            case "Item 7":
-                return R.drawable.c7;
-            case "Item 8":
-                return R.drawable.c8;
-            case "Item 9":
-                return R.drawable.c9;
-            case "Item 10":
-                return R.drawable.c10;
-            default:
-                return R.drawable.c8;
-        }
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {

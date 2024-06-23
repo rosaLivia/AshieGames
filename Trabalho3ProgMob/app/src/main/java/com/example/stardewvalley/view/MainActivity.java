@@ -12,7 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.stardewvalley.R;
-import com.google.firebase.Firebase;
+import com.example.stardewvalley.view.lojaView.Loja.AshieGames;
 
 public class MainActivity extends AppCompatActivity {
 

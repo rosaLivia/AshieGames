@@ -1,6 +1,6 @@
 package com.example.stardewvalley.service;
 
-import com.example.stardewvalley.Entity.Seed;
+import com.example.stardewvalley.entity.Seed;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;

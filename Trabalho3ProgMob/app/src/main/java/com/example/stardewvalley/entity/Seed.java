@@ -1,4 +1,4 @@
-package com.example.stardewvalley.Entity;
+package com.example.stardewvalley.entity;
 
 public class Seed {
     private String enderecoID; // Alterado para String para compatibilidade com Firebase

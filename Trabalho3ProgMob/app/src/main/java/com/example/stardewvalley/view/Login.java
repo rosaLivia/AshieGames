@@ -13,7 +13,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.stardewvalley.view.LojaView.Loja.AshieGames;
+import com.example.stardewvalley.view.lojaView.Loja.AshieGames;
 import com.example.stardewvalley.R;
 import com.example.stardewvalley.service.UserService;
 

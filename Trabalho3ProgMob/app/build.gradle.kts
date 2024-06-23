@@ -49,11 +49,27 @@ dependencies {
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.firebase.auth)
+    implementation(libs.recyclerview)
+    implementation(libs.firebase.database)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
 
+
+
+
+
+
+
+
+
     implementation("com.github.bumptech.glide:glide:4.12.0")
+    implementation("com.squareup.picasso:picasso:2.71828")
+
+
+
+    implementation ("com.github.bumptech.glide:glide:4.12.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
 
 
     implementation(platform("com.google.firebase:firebase-bom:33.1.0"))

@@ -4,16 +4,16 @@ import java.io.Serializable;
 
 public class Item implements Serializable {
     private String name;
-    private String imageUrl;
+    private int imageResourceId;
     private double price;
 
     public Item() {
         // Construtor vazio necessário para o Firestore
     }
 
-    public Item(String name, String imageUrl, double price) {
+    public Item(String name, int imageResourceId, double price) {
         this.name = name;
-        this.imageUrl = imageUrl;
+        this.imageResourceId = imageResourceId;
         this.price = price;
     }
 
@@ -25,12 +25,12 @@ public class Item implements Serializable {
         this.name = name;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public int getImageResourceId() {
+        return imageResourceId;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageResourceId(int imageResourceId) {
+        this.imageResourceId = imageResourceId;
     }
 
     public double getPrice() {
