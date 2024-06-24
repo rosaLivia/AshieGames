@@ -18,7 +18,6 @@ import com.example.stardewvalley.entity.User;
 import com.example.stardewvalley.service.UserService;
 import com.example.stardewvalley.view.Login;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,71 +39,61 @@ public class PerfilUser extends AppCompatActivity {
     private FirebaseUser currentUser;
     private StorageReference storageReference;
 
-
-
-
     private Button btnDeslogar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil_user);
-        //teste
+
         IniciarComponentes();
-        ///
-
-        profileImageView = findViewById(R.id.profileImageView);
-        profileName = findViewById(R.id.profileName);
-        profileEmail = findViewById(R.id.profileEmail);
-
-
-
-
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         storageReference = FirebaseStorage.getInstance().getReference("profile_pics");
         userService = new UserService();
 
         if (currentUser != null) {
-            // Consultar usuário pelo email
-            userService.getUserByEmail(currentUser.getEmail(), new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if (task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
-                        for (DocumentSnapshot document : task.getResult()) {
-                            User userData = document.toObject(User.class);
-                            if (userData != null) {
-                                profileName.setText(userData.getNome() != null ? userData.getNome() : "Nome do Usuário");
-                                profileEmail.setText(userData.getEmail() != null ? userData.getEmail() : "Email do Usuário");
-
-                                // Carregar a foto do usuário, se disponível
-                                if (userData.getProfileImageUrl() != null) {
-                                    Picasso.get().load(userData.getProfileImageUrl()).into(profileImageView);
-                                } else {
-                                    profileImageView.setImageResource(R.drawable.a);
-                                }
-                            }
-                        }
-                    } else {
-                        Log.d("PerfilUser", "No user data found for email: " + currentUser.getEmail());
-                    }
-                }
-            });
+            loadUserProfile();
+        } else {
+            Toast.makeText(this, "Usuário não autenticado.", Toast.LENGTH_SHORT).show();
+            navigateToLogin();
         }
 
-
-        ///teste
         btnDeslogar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 FirebaseAuth.getInstance().signOut();
-                 Intent intent = new Intent(PerfilUser.this, Login.class);
-                 startActivity(intent);
-                 finish();
-           }
+                FirebaseAuth.getInstance().signOut();
+                navigateToLogin();
+            }
         });
     }
 
+    private void loadUserProfile() {
+        userService.getUserByEmail(currentUser.getEmail(), new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
+                    for (DocumentSnapshot document : task.getResult()) {
+                        User userData = document.toObject(User.class);
+                        if (userData != null) {
+                            profileName.setText(userData.getNome() != null ? userData.getNome() : "Nome do Usuário");
+                            profileEmail.setText(userData.getEmail() != null ? userData.getEmail() : "Email do Usuário");
+
+                            // Carregar a foto do usuário, se disponível
+                            if (userData.getProfileImageUrl() != null) {
+                                Picasso.get().load(userData.getProfileImageUrl()).into(profileImageView);
+                            } else {
+                                profileImageView.setImageResource(R.drawable.a);
+                            }
+                        }
+                    }
+                } else {
+                    Log.d("PerfilUser", "No user data found for email: " + currentUser.getEmail());
+                    Toast.makeText(PerfilUser.this, "Nenhum dado do usuário encontrado.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 
     // Método chamado quando o botão "Alterar Foto" é clicado
     public void changeProfilePicture(View view) {
@@ -131,21 +120,26 @@ public class PerfilUser extends AppCompatActivity {
             StorageReference fileReference = storageReference.child(currentUser.getUid() + ".jpg");
 
             fileReference.putFile(imageUri)
-                    .addOnSuccessListener(taskSnapshot -> {
-                        fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
-                            // Atualize a URL da imagem de perfil no Firestore
-                            userService.updateProfileImageUrl(currentUser.getUid(), uri.toString());
-                            Picasso.get().load(uri).into(profileImageView);
-                            Toast.makeText(PerfilUser.this, "Foto de perfil atualizada com sucesso!", Toast.LENGTH_SHORT).show();
-                        });
-                    })
+                    .addOnSuccessListener(taskSnapshot -> fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                        // Atualize a URL da imagem de perfil no Firestore
+                        userService.updateProfileImageUrl(currentUser.getUid(), uri.toString());
+                        Picasso.get().load(uri).into(profileImageView);
+                        Toast.makeText(PerfilUser.this, "Foto de perfil atualizada com sucesso!", Toast.LENGTH_SHORT).show();
+                    }))
                     .addOnFailureListener(e -> Toast.makeText(PerfilUser.this, "Falha ao fazer upload da imagem.", Toast.LENGTH_SHORT).show());
         }
     }
 
-
-
     private void IniciarComponentes() {
+        profileImageView = findViewById(R.id.profileImageView);
+        profileName = findViewById(R.id.profileName);
+        profileEmail = findViewById(R.id.profileEmail);
         btnDeslogar = findViewById(R.id.btnDeslogar);
+    }
+
+    private void navigateToLogin() {
+        Intent intent = new Intent(PerfilUser.this, Login.class);
+        startActivity(intent);
+        finish();
     }
 }
