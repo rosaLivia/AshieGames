@@ -66,20 +66,20 @@ public class Cadastro extends AppCompatActivity {
                                 FirebaseUser firebaseUser = mAuth.getCurrentUser();
                                 if (firebaseUser != null) {
                                     String userId = firebaseUser.getUid();
-                                    User user = new User(userId, nome, email, password);
+                                    User user = new User(userId, nome, email, password, null); // profileImageUrl como null
                                     UserService userService = new UserService();
                                     userService.addUser(user, aVoid -> {
-                                        Log.d("CadastroActivity", "Cadastro realizado com sucesso!");
+                                        Log.d("Cadastro", "Usuário cadastrado com sucesso.");
                                         Toast.makeText(Cadastro.this, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show();
                                         finish();
                                     }, e -> {
-                                        Log.e("CadastroActivity", "Falha ao cadastrar", e);
-                                        Toast.makeText(Cadastro.this, "Falha ao cadastrar. Tente novamente.", Toast.LENGTH_SHORT).show();
+                                        Log.w("Cadastro", "Erro ao cadastrar usuário", e);
+                                        Toast.makeText(Cadastro.this, "Erro ao cadastrar usuário.", Toast.LENGTH_SHORT).show();
                                     });
                                 }
                             } else {
-                                Log.e("CadastroActivity", "Erro ao criar usuário: " + task.getException().getMessage(), task.getException());
-                                Toast.makeText(Cadastro.this, "Erro ao criar usuário. Tente novamente.", Toast.LENGTH_SHORT).show();
+                                Log.w("Cadastro", "Erro ao criar usuário no Firebase Authentication", task.getException());
+                                Toast.makeText(Cadastro.this, "Erro ao realizar cadastro.", Toast.LENGTH_SHORT).show();
                             }
                         });
             }

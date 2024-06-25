@@ -31,9 +31,9 @@ public class AshieGames extends AppCompatActivity {
 
         // Inicializar a lista de itens
         itemList = new ArrayList<>();
-        itemList.add(new Item("Item 1", R.drawable.c1, 10.99));
-        itemList.add(new Item("Item 2", R.drawable.c2, 12.99));
-        itemList.add(new Item("Item 3", R.drawable.c3, 14.99));
+        itemList.add(new Item("Alface", R.drawable.c1, 5.99));
+        itemList.add(new Item("Cenoura", R.drawable.c2, 3.56));
+        itemList.add(new Item("Baiacu", R.drawable.c3, 48.90));
         // Adicione mais itens conforme necessário
 
         // Inicializar o adaptador e configurar o RecyclerView

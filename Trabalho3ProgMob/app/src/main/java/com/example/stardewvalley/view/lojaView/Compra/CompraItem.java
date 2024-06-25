@@ -71,26 +71,13 @@ public class CompraItem extends AppCompatActivity {
         if (name == null) return R.drawable.default_image;
 
         switch (name) {
-            case "Item 1":
+            case "Alface":
                 return R.drawable.c1;
-            case "Item 2":
+            case "Cenoura":
                 return R.drawable.c2;
-            case "Item 3":
+            case "Baiacu":
                 return R.drawable.c3;
-            case "Item 4":
-                return R.drawable.c4;
-            case "Item 5":
-                return R.drawable.c5;
-            case "Item 6":
-                return R.drawable.c6;
-            case "Item 7":
-                return R.drawable.c7;
-            case "Item 8":
-                return R.drawable.c8;
-            case "Item 9":
-                return R.drawable.c9;
-            case "Item 10":
-                return R.drawable.c10;
+
             default:
                 return R.drawable.default_image;
         }
@@ -98,26 +85,13 @@ public class CompraItem extends AppCompatActivity {
 
     private double getItemPriceByName(String name) {
         switch (name) {
-            case "Item 1":
-                return 10.99;
-            case "Item 2":
-                return 15.49;
-            case "Item 3":
-                return 7.99;
-            case "Item 4":
-                return 12.49;
-            case "Item 5":
-                return 9.99;
-            case "Item 6":
-                return 11.99;
-            case "Item 7":
-                return 8.99;
-            case "Item 8":
-                return 14.49;
-            case "Item 9":
-                return 13.99;
-            case "Item 10":
-                return 6.49;
+            case "Alface":
+                return 5.99;
+            case "Cenoura":
+                return 3.56;
+            case "Baiacu":
+                return 48.90;
+
             default:
                 return 0.0;
         }
@@ -125,26 +99,13 @@ public class CompraItem extends AppCompatActivity {
 
     private Item getItemByName(String name) {
         switch (name) {
-            case "Item 1":
-                return new Item("Item 1", R.drawable.c1, 10.99);
-            case "Item 2":
-                return new Item("Item 2", R.drawable.c2, 15.49);
-            case "Item 3":
-                return new Item("Item 3", R.drawable.c3, 7.99);
-            case "Item 4":
-                return new Item("Item 4", R.drawable.c4, 12.49);
-            case "Item 5":
-                return new Item("Item 5", R.drawable.c5, 9.99);
-            case "Item 6":
-                return new Item("Item 6", R.drawable.c6, 11.99);
-            case "Item 7":
-                return new Item("Item 7", R.drawable.c7, 8.99);
-            case "Item 8":
-                return new Item("Item 8", R.drawable.c8, 14.49);
-            case "Item 9":
-                return new Item("Item 9", R.drawable.c9, 13.99);
-            case "Item 10":
-                return new Item("Item 10", R.drawable.c10, 6.49);
+            case "Alface":
+                return new Item("Alface", R.drawable.c1, 5.99);
+            case "Cenoura":
+                return new Item("Cenoura", R.drawable.c2, 3.56);
+            case "Baiacu":
+                return new Item("Baiacu", R.drawable.c3, 48.90);
+
             default:
                 return null;
         }
