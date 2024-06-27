@@ -16,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.stardewvalley.R;
+import com.example.stardewvalley.entity.City;
+import com.example.stardewvalley.entity.Seed;
 import com.example.stardewvalley.entity.User;
 import com.example.stardewvalley.service.UserService;
 import com.example.stardewvalley.view.Login;
@@ -25,8 +27,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 public class PerfilUser extends AppCompatActivity {
@@ -36,18 +36,12 @@ public class PerfilUser extends AppCompatActivity {
     private ImageView profileImageView;
     private TextView profileName;
     private TextView profileEmail;
-
+    private TextView profileSeed;
+    private TextView profileCity;
     private UserService userService;
     private FirebaseUser currentUser;
-    private StorageReference storageReference;
-
     private ImageView btnDeslogar;
     private ImageView btnVoltar;
-
-
-
-    //teclado
-
     private ConstraintLayout PerfilUser;
 
     @Override
@@ -58,7 +52,6 @@ public class PerfilUser extends AppCompatActivity {
         IniciarComponentes();
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        storageReference = FirebaseStorage.getInstance().getReference("profile_pics");
         userService = new UserService();
 
         if (currentUser != null) {
@@ -68,67 +61,62 @@ public class PerfilUser extends AppCompatActivity {
             navigateToLogin();
         }
 
-        /// teclado
-
-        PerfilUser.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                hideKeyboard(v); // Passa a view que foi clicada para o método hideKeyboard
-                return false;
-            }
+        PerfilUser.setOnTouchListener((v, event) -> {
+            hideKeyboard(v);
+            return false;
         });
 
-        btnDeslogar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                navigateToLogin();
-            }
+        btnDeslogar.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            navigateToLogin();
         });
 
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-
-
-
-
-
-
+        btnVoltar.setOnClickListener(v -> finish());
     }
 
     private void loadUserProfile() {
-        userService.getUserByEmail(currentUser.getEmail(), new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
-                    for (DocumentSnapshot document : task.getResult()) {
-                        User userData = document.toObject(User.class);
-                        if (userData != null) {
-                            profileName.setText(userData.getNome() != null ? userData.getNome() : "Nome do Usuário");
-                            profileEmail.setText(userData.getEmail() != null ? userData.getEmail() : "Email do Usuário");
+        userService.getUserByEmail(currentUser.getEmail(), task -> {
+            if (task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
+                for (DocumentSnapshot document : task.getResult()) {
+                    User userData = document.toObject(User.class);
+                    if (userData != null) {
+                        profileName.setText(userData.getNome() != null ? userData.getNome() : "Nome do Usuário");
+                        profileEmail.setText(userData.getEmail() != null ? userData.getEmail() : "Email do Usuário");
 
-                            // Carregar a foto do usuário, se disponível
-                            if (userData.getProfileImageUrl() != null) {
-                                Picasso.get().load(userData.getProfileImageUrl()).into(profileImageView);
-                            } else {
-                                profileImageView.setImageResource(R.drawable.a);
-                            }
+                        if (userData.getProfileImageUrl() != null) {
+                            Picasso.get().load(userData.getProfileImageUrl()).into(profileImageView);
+                        } else {
+                            profileImageView.setImageResource(R.drawable.a);
                         }
+
+                        // Buscar detalhes de Seed e City
+                        userService.getSeedById(userData.getSeedId(), seedTask -> {
+                            if (seedTask.isSuccessful() && seedTask.getResult() != null) {
+                                Seed seed = seedTask.getResult().toObject(Seed.class);
+                                if (seed != null) {
+                                    profileSeed.setText(seed.getDescricao());
+                                }
+                            }
+                        });
+
+                        userService.getCityById(userData.getCityId(), cityTask -> {
+                            if (cityTask.isSuccessful() && cityTask.getResult() != null) {
+                                City city = cityTask.getResult().toObject(City.class);
+                                if (city != null) {
+                                    String cityInfo = city.getCidade() + ", " + city.getEstado();
+                                    profileCity.setText(cityInfo);
+                                }
+                            }
+                        });
                     }
-                } else {
-                    Log.d("PerfilUser", "No user data found for email: " + currentUser.getEmail());
-                    Toast.makeText(PerfilUser.this, "Nenhum dado do usuário encontrado.", Toast.LENGTH_SHORT).show();
                 }
+            } else {
+                Log.d("PerfilUser", "No user data found for email: " + currentUser.getEmail());
+                Toast.makeText(PerfilUser.this, "Nenhum dado do usuário encontrado.", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    // Método chamado quando o botão "Alterar Foto" é clicado
     public void changeProfilePicture(View view) {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -136,7 +124,6 @@ public class PerfilUser extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, "Escolha uma imagem"), PICK_IMAGE_REQUEST);
     }
 
-    // Método para lidar com o resultado da seleção de imagem
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -147,14 +134,12 @@ public class PerfilUser extends AppCompatActivity {
         }
     }
 
-    // Método para fazer o upload da imagem para o Firebase Storage
     private void uploadImageToFirebase(Uri imageUri) {
         if (currentUser != null) {
-            StorageReference fileReference = storageReference.child(currentUser.getUid() + ".jpg");
+            StorageReference fileReference = FirebaseStorage.getInstance().getReference("profile_pics").child(currentUser.getUid() + ".jpg");
 
             fileReference.putFile(imageUri)
                     .addOnSuccessListener(taskSnapshot -> fileReference.getDownloadUrl().addOnSuccessListener(uri -> {
-                        // Atualize a URL da imagem de perfil no Firestore
                         userService.updateProfileImageUrl(currentUser.getUid(), uri.toString());
                         Picasso.get().load(uri).into(profileImageView);
                         Toast.makeText(PerfilUser.this, "Foto de perfil atualizada com sucesso!", Toast.LENGTH_SHORT).show();
@@ -167,12 +152,10 @@ public class PerfilUser extends AppCompatActivity {
         profileImageView = findViewById(R.id.profileImageView);
         profileName = findViewById(R.id.profileName);
         profileEmail = findViewById(R.id.profileEmail);
+        profileSeed = findViewById(R.id.profileSeed);
+        profileCity = findViewById(R.id.profileCity);
         btnDeslogar = findViewById(R.id.btnDeslogar);
         btnVoltar = findViewById(R.id.btnVoltar);
-
-
-        //teclado
-
         PerfilUser = findViewById(R.id.loginMain);
     }
 
@@ -181,8 +164,6 @@ public class PerfilUser extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
-
 
     private void hideKeyboard(View view) {
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
@@ -198,14 +179,4 @@ public class PerfilUser extends AppCompatActivity {
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
 }
