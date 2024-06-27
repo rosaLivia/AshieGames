@@ -1,5 +1,6 @@
 package com.example.stardewvalley.view.lojaView.Compra;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,6 +22,7 @@ public class CompraItem extends AppCompatActivity {
     private TextView compraPrice;
     private Button btnComprar;
 
+    @SuppressLint("DefaultLocale")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,7 @@ public class CompraItem extends AppCompatActivity {
 
         // Configura o nome e o preço do item
         compraName.setText(itemName);
+        assert itemName != null;
         compraPrice.setText(String.format("$%.2f", getItemPriceByName(itemName)));
 
         // Configura o botão de compra

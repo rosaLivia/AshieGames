@@ -1,15 +1,21 @@
 package com.example.stardewvalley.view;
 
+import static com.google.android.material.internal.ViewUtils.hideKeyboard;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.stardewvalley.R;
 import com.example.stardewvalley.view.lojaView.Loja.AshieGames;
@@ -29,7 +35,10 @@ public class Login extends AppCompatActivity {
 
     private Button btnCadastro;
 
+    private ConstraintLayout loginMain;
 
+
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +48,8 @@ public class Login extends AppCompatActivity {
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         btnLogin = findViewById(R.id.btnLogin);
+
+        loginMain = findViewById(R.id.loginMain);
 
         cad();
 
@@ -55,6 +66,16 @@ public class Login extends AppCompatActivity {
                 }
             }
         });
+
+
+        loginMain.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                hideKeyboard(v);
+                return false;
+            }
+        });
+
 
         btnCadastro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,5 +111,23 @@ public class Login extends AppCompatActivity {
     }
 
 
+    private void hideKeyboard(View view) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        if (imm != null && view != null) {
+            Log.d("EditCity", "Hiding keyboard from view: " + view.toString());
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        } else {
+            if (imm == null) {
+                Log.d("EditCity", "InputMethodManager is null");
+            }
+            if (view == null) {
+                Log.d("EditCity", "View is null");
+            }
+        }
+    }
+
+
+
+ 
 
 }

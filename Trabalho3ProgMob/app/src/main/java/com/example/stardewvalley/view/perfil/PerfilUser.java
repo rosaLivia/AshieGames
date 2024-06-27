@@ -4,14 +4,16 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.stardewvalley.R;
 import com.example.stardewvalley.entity.User;
@@ -39,7 +41,14 @@ public class PerfilUser extends AppCompatActivity {
     private FirebaseUser currentUser;
     private StorageReference storageReference;
 
-    private Button btnDeslogar;
+    private ImageView btnDeslogar;
+    private ImageView btnVoltar;
+
+
+
+    //teclado
+
+    private ConstraintLayout PerfilUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +68,16 @@ public class PerfilUser extends AppCompatActivity {
             navigateToLogin();
         }
 
+        /// teclado
+
+        PerfilUser.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                hideKeyboard(v); // Passa a view que foi clicada para o método hideKeyboard
+                return false;
+            }
+        });
+
         btnDeslogar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,6 +85,20 @@ public class PerfilUser extends AppCompatActivity {
                 navigateToLogin();
             }
         });
+
+        btnVoltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
+
+
+
+
+
     }
 
     private void loadUserProfile() {
@@ -135,6 +168,12 @@ public class PerfilUser extends AppCompatActivity {
         profileName = findViewById(R.id.profileName);
         profileEmail = findViewById(R.id.profileEmail);
         btnDeslogar = findViewById(R.id.btnDeslogar);
+        btnVoltar = findViewById(R.id.btnVoltar);
+
+
+        //teclado
+
+        PerfilUser = findViewById(R.id.loginMain);
     }
 
     private void navigateToLogin() {
@@ -142,4 +181,31 @@ public class PerfilUser extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+
+
+    private void hideKeyboard(View view) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        if (imm != null && view != null) {
+            Log.d("EditCity", "Hiding keyboard from view: " + view.toString());
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        } else {
+            if (imm == null) {
+                Log.d("EditCity", "InputMethodManager is null");
+            }
+            if (view == null) {
+                Log.d("EditCity", "View is null");
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
 }
