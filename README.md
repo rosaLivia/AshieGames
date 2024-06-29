@@ -14,17 +14,17 @@
     
 # Requisitos Funcionais
   * Sistema deve permitir que o usuário faça cadastro com suas devidas informações.
-  * Sistema deve permitir que usuário possa escolher meios de pagamento.
-  * Sistema deve permitir gerenciamento de biblioteca de jogos, seja na exclusão ou adição de um novo jogo a mesma.
+  * Sistema deve permitir possa realizar compras de itens de interesse.
+  * Sistema deve permitir listagem do histórico de compras do usuário.
   * Sistema deve permitir que usuário possa adicionar amigos a plataforma.
-  * Sistema deve permitir que usuário possa presentear amigos com jogos da sua biblioteca.
+  * Sistema deve permitir que usuário tenha perfil próprio.
   * Sistema deve permitir listagem de usuários amigos.
     
 # Recursos do AndroidStudio
   * String, Cores, Atividades, Banco de dados ROOM, ListVIew, Menu de Opções, Preenchimento de campos de validação. 
 
 # Relatórios 
-  * O sistema deve permitir a geração de relatórios de jogos com entrada e saída, detalhando as transações de compra. 
+  * O sistema deve permitir a geração de relatórios de compras de itens, detalhando as transações de compra. 
 
 
 
