@@ -2,12 +2,14 @@ package com.example.stardewvalley.service;
 
 import android.util.Log;
 
+import com.example.stardewvalley.entity.City;
 import com.example.stardewvalley.entity.Seed;
 import com.example.stardewvalley.entity.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -18,6 +20,7 @@ public class UserService {
     private final CollectionReference userCollection;
     private final CollectionReference seedCollection;
     private final CollectionReference cityCollection;
+
     public UserService() {
         firestore = FirebaseFirestore.getInstance();
         userCollection = firestore.collection("users");
@@ -42,15 +45,20 @@ public class UserService {
         userCollection.whereEqualTo("email", email).get().addOnCompleteListener(onCompleteListener);
     }
 
-    public void getSeedById(String seedId, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
-        seedCollection.document(seedId).get().addOnCompleteListener(onCompleteListener);
-    }
-
-    public void getCityById(String cityId, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
-        cityCollection.document(cityId).get().addOnCompleteListener(onCompleteListener);
-    }
-
     public void getUserDetails(String userId, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
         userCollection.document(userId).get().addOnCompleteListener(onCompleteListener);
     }
+
+    // Dentro de SeedService
+    public void getSeedByEmail(String email, OnCompleteListener<QuerySnapshot> onCompleteListener) {
+        seedCollection.whereEqualTo("email", email).get().addOnCompleteListener(onCompleteListener);
+    }
+
+    // Dentro de CityService
+    public void getCityByEmail(String email, OnCompleteListener<QuerySnapshot> onCompleteListener) {
+        cityCollection.whereEqualTo("email", email).get().addOnCompleteListener(onCompleteListener);
+    }
+
+
+
 }

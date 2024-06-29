@@ -1,32 +1,24 @@
 package com.example.stardewvalley.entity;
 
 public class Seed {
-    private String enderecoID; // Alterado para String para compatibilidade com Firebase
     private String descricao;
     private double latitude;
     private double longitude;
-    private String cityIDFK; // Alterado para String
+    private String email;
+    private String endereco;  // Novo campo
 
     // Construtor vazio necessário para a desserialização com Firebase
     public Seed() {}
 
-    public Seed(String enderecoID, String descricao, double latitude, double longitude, String cityIDFK) {
-        this.enderecoID = enderecoID;
+    public Seed(String descricao, double latitude, double longitude, String email, String endereco) {
         this.descricao = descricao;
         this.latitude = latitude;
         this.longitude = longitude;
-        this.cityIDFK = cityIDFK;
+        this.email = email;
+        this.endereco = endereco;
     }
 
-    // Getters e setters
-    public String getEnderecoID() {
-        return enderecoID;
-    }
-
-    public void setEnderecoID(String enderecoID) {
-        this.enderecoID = enderecoID;
-    }
-
+    // Getters e Setters
     public String getDescricao() {
         return descricao;
     }
@@ -51,11 +43,20 @@ public class Seed {
         this.longitude = longitude;
     }
 
-    public String getCityIDFK() {
-        return cityIDFK;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCityIDFK(String cityIDFK) {
-        this.cityIDFK = cityIDFK;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 }
+

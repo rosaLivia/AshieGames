@@ -6,8 +6,7 @@ public class User {
     private String email;
     private String senha;
     private String profileImageUrl; // Novo campo para armazenar a URL da imagem de perfil
-    private String seedId; // ID do Seed relacionado
-    private String cityId; // ID da City relacionada
+
 
     public User() {
         // Construtor vazio necessário para Firestore
@@ -42,8 +41,7 @@ public class User {
         this.email = email;
         this.senha = senha;
         this.profileImageUrl = profileImageUrl;
-        this.seedId = seedId;
-        this.cityId = cityId;
+
     }
 
     // Getters e Setters
@@ -87,19 +85,5 @@ public class User {
         this.profileImageUrl = profileImageUrl;
     }
 
-    public String getSeedId() {
-        return seedId;
-    }
 
-    public void setSeedId(String seedId) {
-        this.seedId = seedId;
-    }
-
-    public String getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(String cityId) {
-        this.cityId = cityId;
-    }
 }

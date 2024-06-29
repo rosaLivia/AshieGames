@@ -1,52 +1,29 @@
+// CityService.java
 package com.example.stardewvalley.service;
 
 import com.example.stardewvalley.entity.City;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class CityService {
-    private final CollectionReference cityCollection;
+    private final FirebaseFirestore db;
+    private final String COLLECTION_NAME = "cities";
 
     public CityService() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        cityCollection = db.collection("cities");
+        db = FirebaseFirestore.getInstance();
     }
 
-    public void addCity(City city) {
-        cityCollection.add(city)
-                .addOnSuccessListener(documentReference -> {
-                    String id = documentReference.getId();
-                    city.setCidadeID(id);
-                    documentReference.set(city); // Atualiza o ID no documento
-                })
-                .addOnFailureListener(e -> {
-                    // Lidar com falha
-                });
+    public void addCity(City city, OnSuccessListener<Void> onSuccessListener, OnFailureListener onFailureListener) {
+        db.collection(COLLECTION_NAME).add(city)
+                .addOnSuccessListener(documentReference -> onSuccessListener.onSuccess(null))
+                .addOnFailureListener(onFailureListener);
     }
 
-    public void updateCity(City city) {
-        cityCollection.document(city.getCidadeID()).set(city)
-                .addOnSuccessListener(aVoid -> {
-                    // Sucesso
-                })
-                .addOnFailureListener(e -> {
-                    // Lidar com falha
-                });
-    }
-
-    public void deleteCity(String cidadeID) {
-        cityCollection.document(cidadeID).delete()
-                .addOnSuccessListener(aVoid -> {
-                    // Sucesso
-                })
-                .addOnFailureListener(e -> {
-                    // Lidar com falha
-                });
-    }
-
-    public void getCity(String cidadeID, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
-        cityCollection.document(cidadeID).get().addOnCompleteListener(onCompleteListener);
+    public void getCityByEmail(String email, OnCompleteListener<QuerySnapshot> onCompleteListener) {
+        db.collection(COLLECTION_NAME).whereEqualTo("email", email).get().addOnCompleteListener(onCompleteListener);
     }
 }

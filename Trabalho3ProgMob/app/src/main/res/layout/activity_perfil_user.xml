@@ -5,7 +5,6 @@
     android:id="@+id/loginMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:background="@drawable/a"
     tools:context=".view.perfil.PerfilUser">
 
@@ -13,8 +12,7 @@
         android:id="@+id/profileImageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="40dp"
-        android:alpha="5"
+        android:layout_marginTop="44dp"
         android:src="@drawable/a"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.051"
@@ -23,97 +21,137 @@
 
     <TextView
         android:id="@+id/profileName"
-        android:layout_width="174dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="12dp"
-        android:alpha="5"
-        android:fontFamily="sans-serif-smallcaps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Nome do Usuário"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/profileEmail"
         app:layout_constraintStart_toEndOf="@+id/profileImageView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/profileImageView"
+        app:layout_constraintVertical_bias="0.5" />
 
     <TextView
         android:id="@+id/profileEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="84dp"
-        android:alpha="5"
-        android:fontFamily="sans-serif-smallcaps"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
         android:text="Email do Usuário"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/profileImageView"
+        app:layout_constraintTop_toBottomOf="@id/profileName" />
+
+    <TextView
+        android:id="@+id/profileSeedDescription"
+        android:layout_width="80dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:text="Descrição"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/profileImageView"
+        app:layout_constraintTop_toBottomOf="@+id/profileEmail" />
+
+    <TextView
+        android:id="@+id/profileSeedAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="29dp"
+        android:text="Endereço da Semente"
+        android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.278"
-        app:layout_constraintStart_toEndOf="@+id/profileImageView"
-        app:layout_constraintTop_toBottomOf="@+id/profileName" />
+        app:layout_constraintStart_toEndOf="@+id/profileSeedDescription"
+        app:layout_constraintTop_toBottomOf="@+id/profileEmail" />
 
-    <Button
-        android:id="@+id/btnChangeProfilePic"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="20dp"
-        android:onClick="changeProfilePicture"
-        android:text="Alterar Foto"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileImageView" />
+    <TextView
+        android:id="@+id/profileCityState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="7dp"
+        android:text="Cidade, Estado"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/profileImageView"
+        app:layout_constraintTop_toBottomOf="@+id/profileSeedDescription" />
 
     <ImageView
         android:id="@+id/btnDeslogar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="370dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.958"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/exit_vector_1_svgrepo_com" />
 
     <ImageView
         android:id="@+id/btnVoltar"
-        android:layout_width="50dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="10dp"
+        android:layout_width="64dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="5dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/voltar" />
 
-    <TextView
-        android:id="@+id/profileSeed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="20dp"
-        android:text="Localização"
-        android:textColor="@color/black"
+    <ImageView
+        android:id="@+id/alterarImagem"
+        android:layout_width="30dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="86dp"
+        android:layout_marginTop="8dp"
+        android:onClick="changeProfilePicture"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profileEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/profileImageView"
+        app:srcCompat="@drawable/editarfoto" />
 
     <TextView
-        android:id="@+id/profileCity"
+        android:id="@+id/adicionarEndCity"
+        android:layout_width="51dp"
+        android:layout_height="76dp"
+        android:layout_marginStart="228dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="511dp"
+        android:onClick="goToAddSeedCity"
+        android:text="Adicionar endereço"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/profileImageView" />
+
+    <Button
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="95dp"
-        android:layout_marginTop="55dp"
-        android:layout_marginEnd="60dp"
-        android:text="Endereço"
-        android:textColor="@color/black"
+        android:layout_marginStart="160dp"
+        android:layout_marginEnd="160dp"
+        android:layout_marginBottom="200dp"
+        android:text="Mapa"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/profileSeed"
-        app:layout_constraintTop_toBottomOf="@+id/profileName" />
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/itensComprados"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="126dp"
+        android:layout_marginEnd="127dp"
+        android:layout_marginBottom="68dp"
+        android:text="itens comprados "
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

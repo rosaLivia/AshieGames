@@ -1,11 +1,11 @@
 package com.example.stardewvalley.entity;
 
 public class City {
-    private String cidadeID; // Alterado para String para compatibilidade com Firebase
+    private String cidadeID;
     private String cidade;
     private String estado;
+    private String email;
 
-    // Construtor vazio necessário para a desserialização com Firebase
     public City() {}
 
     public City(String cidadeID, String cidade, String estado) {
@@ -14,7 +14,6 @@ public class City {
         this.estado = estado;
     }
 
-    // Getters e setters
     public String getCidadeID() {
         return cidadeID;
     }
@@ -37,6 +36,14 @@ public class City {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

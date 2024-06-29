@@ -1,52 +1,31 @@
+// SeedService.java
 package com.example.stardewvalley.service;
 
 import com.example.stardewvalley.entity.Seed;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class SeedService {
-    private final CollectionReference seedCollection;
+    private final FirebaseFirestore db;
+    private final String COLLECTION_NAME = "seeds";
 
     public SeedService() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        seedCollection = db.collection("seeds");
+        db = FirebaseFirestore.getInstance();
     }
 
-    public void addSeed(Seed seed) {
-        seedCollection.add(seed)
-                .addOnSuccessListener(documentReference -> {
-                    String id = documentReference.getId();
-                    seed.setEnderecoID(id);
-                    documentReference.set(seed); // Atualiza o ID no documento
-                })
-                .addOnFailureListener(e -> {
-                    // Lidar com falha
-                });
+    public void addSeed(Seed seed, OnSuccessListener<Void> onSuccessListener, OnFailureListener onFailureListener) {
+        db.collection(COLLECTION_NAME).add(seed)
+                .addOnSuccessListener(documentReference -> onSuccessListener.onSuccess(null))
+                .addOnFailureListener(onFailureListener);
     }
 
-    public void updateSeed(Seed seed) {
-        seedCollection.document(seed.getEnderecoID()).set(seed)
-                .addOnSuccessListener(aVoid -> {
-                    // Sucesso
-                })
-                .addOnFailureListener(e -> {
-                    // Lidar com falha
-                });
+    public void getSeedByEmail(String email, OnCompleteListener<QuerySnapshot> onCompleteListener) {
+        db.collection(COLLECTION_NAME).whereEqualTo("email", email).get().addOnCompleteListener(onCompleteListener);
     }
 
-    public void deleteSeed(String enderecoID) {
-        seedCollection.document(enderecoID).delete()
-                .addOnSuccessListener(aVoid -> {
-                    // Sucesso
-                })
-                .addOnFailureListener(e -> {
-                    // Lidar com falha
-                });
-    }
-
-    public void getSeed(String enderecoID, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
-        seedCollection.document(enderecoID).get().addOnCompleteListener(onCompleteListener);
-    }
 }
+
