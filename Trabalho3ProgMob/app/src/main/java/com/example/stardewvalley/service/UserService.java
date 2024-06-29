@@ -58,6 +58,20 @@ public class UserService {
     public void getCityByEmail(String email, OnCompleteListener<QuerySnapshot> onCompleteListener) {
         cityCollection.whereEqualTo("email", email).get().addOnCompleteListener(onCompleteListener);
     }
+    public void getComprasPorEmail(String email, OnCompleteListener<QuerySnapshot> onCompleteListener) {
+        userCollection.whereEqualTo("email", email).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                String userId = task.getResult().getDocuments().get(0).getId();
+                getUserPurchases(userId, onCompleteListener);
+            } else {
+                onCompleteListener.onComplete(task);
+            }
+        });
+    }
+
+    private void getUserPurchases(String userId, OnCompleteListener<QuerySnapshot> onCompleteListener) {
+        userCollection.document(userId).collection("Compras").get().addOnCompleteListener(onCompleteListener);
+    }
 
 
 

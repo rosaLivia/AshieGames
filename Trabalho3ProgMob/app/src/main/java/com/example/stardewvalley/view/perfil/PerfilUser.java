@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import com.example.stardewvalley.service.SeedService;
 import com.example.stardewvalley.service.UserService;
 import com.example.stardewvalley.view.Login;
 import com.example.stardewvalley.view.MainActivity;
+import com.example.stardewvalley.view.lojaView.Compra.HistoricoComprasActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -46,6 +48,8 @@ public class PerfilUser extends AppCompatActivity {
     private FirebaseUser currentUser;
     private ImageView btnDeslogar;
     private ImageView btnVoltar;
+
+    private Button buttonHistoricoCompras;
     private ConstraintLayout PerfilUser;
 
     @Override
@@ -90,6 +94,13 @@ public class PerfilUser extends AppCompatActivity {
         } catch (Exception e) {
             Log.e(TAG, "Erro na inicialização: " + e.getMessage(), e);
         }
+
+
+
+        buttonHistoricoCompras.setOnClickListener(v -> {
+            Intent intent = new Intent(PerfilUser.this, HistoricoComprasActivity.class);
+            startActivity(intent);
+        });
     }
 
 
@@ -233,6 +244,7 @@ public class PerfilUser extends AppCompatActivity {
         btnDeslogar = findViewById(R.id.btnDeslogar);
         btnVoltar = findViewById(R.id.btnVoltar);
         PerfilUser = findViewById(R.id.loginMain);
+        buttonHistoricoCompras = findViewById(R.id.button_historico_compras);
     }
 
     private void navigateToLogin() {
