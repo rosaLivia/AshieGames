@@ -3,11 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/loja"
     android:padding="16dp">
+
+    <!-- Título -->
+
+    <!-- Lista de Compras -->
+    <TextView
+        android:id="@+id/textView_titulo_historico_compras"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
+        android:text="Histórico de Compras"
+        
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <ListView
         android:id="@+id/listView_historico_compras"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:dividerHeight="1dp" />
 </LinearLayout>

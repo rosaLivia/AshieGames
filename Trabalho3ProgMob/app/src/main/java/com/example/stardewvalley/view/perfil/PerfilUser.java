@@ -48,7 +48,7 @@ public class PerfilUser extends AppCompatActivity {
     private CityService cityService;
     private FirebaseUser currentUser;
     private ImageButton btnDeslogar;
-    private ImageButton btnVoltar;
+    private ImageButton retorna;
 
     private Button buttonHistoricoCompras;
     private ConstraintLayout PerfilUser;
@@ -91,7 +91,7 @@ public class PerfilUser extends AppCompatActivity {
             });
 
 
-            btnVoltar.setOnClickListener(v -> finish());
+            retorna.setOnClickListener(v -> finish());
         } catch (Exception e) {
             Log.e(TAG, "Erro na inicialização: " + e.getMessage(), e);
         }
@@ -102,6 +102,14 @@ public class PerfilUser extends AppCompatActivity {
             Intent intent = new Intent(PerfilUser.this, HistoricoComprasActivity.class);
             startActivity(intent);
         });
+    }
+
+    protected void onResume() {
+        super.onResume();
+        // Refresh your UI or reload data here
+        loadUserProfile();
+        loadSeedInfo();
+
     }
 
 
@@ -243,7 +251,7 @@ public class PerfilUser extends AppCompatActivity {
         profileSeedAddress = findViewById(R.id.profileSeedAddress);
         profileCityState = findViewById(R.id.profileCityState);
         btnDeslogar = findViewById(R.id.btnDeslogar);
-        btnVoltar = findViewById(R.id.btnVoltar);
+        retorna = findViewById(R.id.retorna);
         PerfilUser = findViewById(R.id.loginMain);
         buttonHistoricoCompras = findViewById(R.id.button_historico_compras);
     }
