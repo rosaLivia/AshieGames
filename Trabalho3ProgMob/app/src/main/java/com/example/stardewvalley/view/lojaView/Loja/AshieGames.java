@@ -2,6 +2,8 @@ package com.example.stardewvalley.view.lojaView.Loja;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +35,8 @@ public class AshieGames extends AppCompatActivity {
     private UserService userService;
     private FirebaseUser currentUser;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +48,17 @@ public class AshieGames extends AppCompatActivity {
         // Inicializar a lista de itens
         itemList = new ArrayList<>();
         itemList.add(new Item("Alface", R.drawable.c1, 5.99));
-        itemList.add(new Item("Cenoura", R.drawable.c2, 3.56));
-        itemList.add(new Item("Baiacu", R.drawable.c3, 48.90));
+        itemList.add(new Item("Pão", R.drawable.c2, 3.56));
+        itemList.add(new Item("Linguado", R.drawable.c3, 48.90));
+        itemList.add(new Item("Bule", R.drawable.c4, 59.99));
+        itemList.add(new Item("Melão", R.drawable.c5, 2.25));
+        itemList.add(new Item("Bolo de Morango", R.drawable.c6, 15.00));
+        itemList.add(new Item("Abobora", R.drawable.c7, 6.90));
+        itemList.add(new Item("Cereja", R.drawable.c8, 8.27));
+        itemList.add(new Item("Erva", R.drawable.c9, 2.00));
+        itemList.add(new Item("Tomate", R.drawable.c10, 7.79));
+
+
         // Adicione mais itens conforme necessário
 
         // Inicializar o adaptador e configurar o RecyclerView

@@ -1,8 +1,11 @@
 package com.example.stardewvalley.view.perfil;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +29,8 @@ public class AddSeedCityActivity extends AppCompatActivity {
     private Button btnSave;
     private SeedService seedService;
     private CityService cityService;
+
+    private ImageButton btnVolta;
     private FirebaseUser currentUser;
 
     @Override
@@ -40,12 +45,22 @@ public class AddSeedCityActivity extends AppCompatActivity {
         cityState = findViewById(R.id.cityState);
         btnSave = findViewById(R.id.btnSave);
         endereco = findViewById(R.id.Endereco);
+        btnVolta = findViewById(R.id.btnVolta);
 
         seedService = new SeedService();
         cityService = new CityService();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
         btnSave.setOnClickListener(v -> saveSeedAndCity());
+
+        btnVolta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                /*                Intent intent = new Intent(AddSeedCityActivity.this , PerfilUser.class);
+                startActivity(intent);*/
+            }
+        });
     }
 
     private void saveSeedAndCity() {

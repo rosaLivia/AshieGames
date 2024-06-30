@@ -7,4 +7,10 @@
     <color name="verde_personalizado">#FF15640F</color>
     <color name="verde_salvar">#4CAF50</color>
     <color name="azul_voltar">#FF122C5D</color>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="transparent">#00000000</color>
+    <color name="background_color">#FFFFFF</color>
+    <color name="text_primary">#000000</color>
+    <color name="text_secondary">#757575</color>
+    <color name="button_color">#4CAF50</color>
 </resources>

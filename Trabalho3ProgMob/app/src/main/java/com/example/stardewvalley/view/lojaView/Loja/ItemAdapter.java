@@ -34,11 +34,12 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         return new ItemViewHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         Item item = itemList.get(position);
         holder.itemName.setText(item.getName());
-        holder.itemPrice.setText(String.format("$%.2f", item.getPrice()));
+        holder.itemPrice.setText(String.format("R$%.2f", item.getPrice()));
 
         // Carregar a imagem do recurso drawable correspondente ao item
         holder.itemImage.setImageResource(item.getImageResourceId());
@@ -46,9 +47,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, CompraItem.class);
             intent.putExtra("itemName", item.getName());
+            intent.putExtra("itemImageResourceId", item.getImageResourceId()); // Passar o identificador do recurso
             context.startActivity(intent);
         });
     }
+
 
     @Override
     public int getItemCount() {
