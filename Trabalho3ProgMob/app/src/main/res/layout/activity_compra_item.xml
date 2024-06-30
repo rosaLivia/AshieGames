@@ -3,13 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@drawable/loja">
 
     <ImageView
         android:id="@+id/compraImage"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:src="@drawable/default_image" />
+        android:src="@drawable/default_image"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/item_image_desc" />
 
     <TextView
         android:id="@+id/compraName"
@@ -17,7 +20,11 @@
         android:layout_height="wrap_content"
         android:text="Item Name"
         android:textSize="18sp"
-        android:paddingTop="8dp" />
+        android:paddingTop="8dp"
+
+        android:textColor="@color/text_primary"
+        android:fontFamily="@font/pixelifysans_bold"
+        android:gravity="center_horizontal" />
 
     <TextView
         android:id="@+id/compraPrice"
@@ -25,13 +32,21 @@
         android:layout_height="wrap_content"
         android:text="Item Price"
         android:textSize="16sp"
-        android:paddingTop="4dp" />
+        android:paddingTop="4dp"
+        android:textColor="@color/text_secondary"
+        android:fontFamily="@font/pixelifysans_bold"
+        android:gravity="center_horizontal" />
 
     <Button
         android:id="@+id/btnComprar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Comprar"
-        android:paddingTop="16dp" />
+        android:paddingTop="16dp"
+        android:backgroundTint="@color/button_color"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/pixelifysans_bold"
+        android:gravity="center" />
 
 </LinearLayout>

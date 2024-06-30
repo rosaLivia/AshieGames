@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,8 +47,8 @@ public class PerfilUser extends AppCompatActivity {
     private SeedService seedService;
     private CityService cityService;
     private FirebaseUser currentUser;
-    private ImageView btnDeslogar;
-    private ImageView btnVoltar;
+    private ImageButton btnDeslogar;
+    private ImageButton btnVoltar;
 
     private Button buttonHistoricoCompras;
     private ConstraintLayout PerfilUser;

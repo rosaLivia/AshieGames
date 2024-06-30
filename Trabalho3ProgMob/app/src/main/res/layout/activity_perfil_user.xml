@@ -23,6 +23,7 @@
         android:id="@+id/profileName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
         android:text="Nome do Usuário"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -76,32 +77,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="7dp"
-        android:text="Cidade, Estado"
+        android:text="Cidade - Estado"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/profileImageView"
         app:layout_constraintTop_toBottomOf="@+id/profileSeedDescription" />
-
-    <ImageView
-        android:id="@+id/btnDeslogar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.958"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/exit_vector_1_svgrepo_com" />
-
-    <ImageView
-        android:id="@+id/btnVoltar"
-        android:layout_width="64dp"
-        android:layout_height="59dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/voltar" />
 
     <ImageView
         android:id="@+id/alterarImagem"
@@ -116,17 +96,17 @@
 
     <TextView
         android:id="@+id/adicionarEndCity"
-        android:layout_width="51dp"
-        android:layout_height="76dp"
-        android:layout_marginStart="228dp"
+        android:layout_width="71dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="511dp"
+        android:layout_marginBottom="556dp"
         android:onClick="goToAddSeedCity"
-        android:text="Adicionar endereço"
+        android:text="Adicionar Endereço"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/profileImageView" />
 
     <Button
@@ -135,11 +115,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="160dp"
         android:layout_marginEnd="160dp"
-        android:layout_marginBottom="92dp"
+        android:layout_marginBottom="216dp"
+        android:backgroundTint="@color/verde_salvar"
         android:text="Mapa"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -148,24 +129,36 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="112dp"
+        android:layout_marginTop="227dp"
         android:layout_marginEnd="113dp"
-        android:layout_marginBottom="82dp"
+        android:backgroundTint="@color/verde_salvar"
         android:text="Histórico de Compras"
-        app:layout_constraintBottom_toTopOf="@+id/itensComprados"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/itensComprados"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="126dp"
-        android:layout_marginEnd="127dp"
-        android:layout_marginBottom="72dp"
-        android:text="itens comprados "
-        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alterarImagem" />
+
+    <ImageButton
+        android:id="@+id/btnDeslogar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.851"
+        app:layout_constraintStart_toEndOf="@+id/profileName"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/exit_vector_1_svgrepo_com" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/voltar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

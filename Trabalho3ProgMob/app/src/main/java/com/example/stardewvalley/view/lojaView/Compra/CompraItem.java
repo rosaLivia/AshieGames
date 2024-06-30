@@ -37,11 +37,12 @@ public class CompraItem extends AppCompatActivity {
         btnComprar = findViewById(R.id.btnComprar);
 
         String itemName = getIntent().getStringExtra("itemName");
+        int itemImageResourceId = getIntent().getIntExtra("itemImageResourceId", R.drawable.default_image); // Receber o identificador do recurso
+
         if (itemName != null) {
-            int imageResource = getDrawableResourceByName(itemName);
-            compraImage.setImageResource(imageResource);
+            compraImage.setImageResource(itemImageResourceId); // Usar o identificador do recurso recebido
             compraName.setText(itemName);
-            compraPrice.setText(String.format("$%.2f", getItemPriceByName(itemName)));
+            compraPrice.setText(String.format("R$%.2f", getItemPriceByName(itemName)));
         }
 
         btnComprar.setOnClickListener(v -> {
@@ -74,9 +75,20 @@ public class CompraItem extends AppCompatActivity {
         });
     }
 
+
     private int getDrawableResourceByName(String name) {
-        return getResources().getIdentifier(name.toLowerCase(), "drawable", getPackageName());
+        // Remover caracteres especiais e espaços
+        String resourceName = name.toLowerCase().replaceAll("[^a-z0-9]", "");
+        int resourceId = getResources().getIdentifier(resourceName, "drawable", getPackageName());
+
+        // Se não encontrar o recurso, retornar uma imagem padrão
+        if (resourceId == 0) {
+            resourceId = R.drawable.default_image;
+        }
+
+        return resourceId;
     }
+
 
     private double getItemPriceByName(String name) {
         return 10.0; // Exemplo de preço fixo

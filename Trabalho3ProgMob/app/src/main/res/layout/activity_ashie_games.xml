@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/loja"
     tools:context=".view.lojaView.Loja.AshieGames">
 
     <RelativeLayout
@@ -11,6 +12,7 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -26,10 +28,13 @@
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_width="182dp"
+            android:layout_height="42dp"
+            android:layout_alignParentEnd="true"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="90dp"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/pixelifysans_bold"
             android:text="Ashie Games"
             android:textSize="24sp" />
 
@@ -37,12 +42,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewItems"
-        android:layout_width="277dp"
-        android:layout_height="404dp"
+        android:layout_width="412dp"
+        android:layout_height="638dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/relativeLayout" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

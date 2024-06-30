@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Fonte Regular -->
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/pixelifysans_regular" />
+
+    <!-- Fonte Medium -->
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="500"
+        android:font="@font/pixelifysans_medium" />
+
+    <!-- Fonte SemiBold -->
+
+
+    <!-- Fonte Bold -->
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="700"
+        android:font="@font/pixelifysans_bold" />
+
+</font-family>
